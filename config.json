@@ -1,0 +1,102 @@
+{
+    "repositories": [
+        {
+            "name": "mail-builder",
+            "url": "https://github.com/Hotmart-Org/mail-builder.git",
+            "branch": "master"
+        },
+        {
+            "name": "mail-runner",
+            "url": "https://github.com/Hotmart-Org/mail-runner.git",
+            "branch": "master"
+        },
+        {
+            "name": "mail-api",
+            "url": "https://github.com/Hotmart-Org/mail-api.git",
+            "branch": "master"
+        },
+        {
+            "name": "mail-commons",
+            "url": "https://github.com/Hotmart-Org/mail-commons.git",
+            "branch": "master"
+        },
+        {
+            "name": "mail-sendgrid-proxy",
+            "url": "https://github.com/Hotmart-Org/mail-sendgrid-proxy.git",
+            "branch": "master"
+        },
+        {
+            "name": "mail-ses-proxy",
+            "url": "https://github.com/Hotmart-Org/mail-ses-proxy.git",
+            "branch": "master"
+        },
+        {
+            "name": "mail-validator",
+            "url": "https://github.com/Hotmart-Org/mail-validator.git",
+            "branch": "master"
+        },
+        {
+            "name": "api-whatsapp-client",
+            "url": "https://github.com/Hotmart-Org/api-whatsapp-client.git",
+            "branch": "master"
+        },
+        {
+            "name": "api-notification-center-management",
+            "url": "https://github.com/Hotmart-Org/api-notification-center-management.git",
+            "branch": "master"
+        },
+        {
+            "name": "api-notification-center-engine",
+            "url": "https://github.com/Hotmart-Org/api-notification-center-engine.git",
+            "branch": "master"
+        },
+        {
+            "name": "api-notification-center-preferences",
+            "url": "https://github.com/Hotmart-Org/api-notification-center-preferences.git",
+            "branch": "master"
+        },
+        {
+            "name": "lambda-notification-center-engine-push",
+            "url": "https://github.com/Hotmart-Org/lambda-notification-center-engine-push.git",
+            "branch": "master"
+        },
+        {
+            "name": "api-whatsapp-optin-management",
+            "url": "https://github.com/Hotmart-Org/api-whatsapp-optin-management.git",
+            "branch": "master"
+        },
+        {
+            "name": "api-whatsapp-management",
+            "url": "https://github.com/Hotmart-Org/api-whatsapp-management.git",
+            "branch": "master"
+        },
+        {
+            "name": "api-whatsapp-plans-management",
+            "url": "https://github.com/Hotmart-Org/api-whatsapp-plans-management.git",
+            "branch": "master"
+        },
+        {
+            "name": "lambda-notification-center-engine-history",
+            "url": "https://github.com/Hotmart-Org/lambda-notification-center-engine-history.git",
+            "branch": "master"
+        },
+        {
+            "name": "biometric-identity-api",
+            "url": "https://github.com/Hotmart-Org/biometric-identity-api.git",
+            "branch": "master"
+        }
+    ],
+    "recipes": [
+        {
+            "name": "com.hotmart.recipes.DataHubClientApiMigration",
+            "description": "Migrate from event-agent to datahub-client-api",
+            "configLocation": "/Users/saymon.silva/cursor-projects/software-foundation-recipes/recipes/datahub-migration_add.yml"
+        }
+    ],
+    "settings": {
+        "CARD_JIRA" : "FCP-1272_add_datahub_client_service_only",
+        "GENERATE_PR": true,
+        "DOWNLOAD_REPOS": true,
+        "WORKSPACE_DIR": "./workspace"
+    }
+} 

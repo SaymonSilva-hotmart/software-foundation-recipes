@@ -1,0 +1,21 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: com.hotmart.recipes.DataHubClientApiMigration
+displayName: Migrando EventAgent para DataClientApi 
+description: Substitui a biblioteca e ajusta configurações para migração de Event Agent para Client API.
+
+variables:
+  # Variável para definir a nova versão do datahub-client-api
+  datahubClientApiVersion: '4.2.0'
+
+recipeList:
+
+  # Adicionar variável SPRING_PROFILES_ACTIVE baseado no arquivo
+  - org.openrewrite.yaml.ChangeValue:
+      keyPath: env.DATAHUB_CLIENT_SERVICE_ONLY
+      value: true
+      filePattern: "**/production.yml"
+
+  - org.openrewrite.yaml.ChangeValue:
+      keyPath: env.SPRING_PROFILES_ACTIVE
+      value: staging
+      filePattern: "**/staging.yml"

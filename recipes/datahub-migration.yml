@@ -1,0 +1,130 @@
+type: specs.openrewrite.org/v1beta/recipe
+name: com.hotmart.recipes.DataHubClientApiMigration
+displayName: Migrando EventAgent para DataClientApi 
+description: Substitui a biblioteca e ajusta configurações para migração de Event Agent para Client API.
+
+variables:
+  # Variável para definir a nova versão do datahub-client-api
+  datahubClientApiVersion: '4.2.0'
+
+recipeList:
+  # Mudar o pacote de imports de event.agent para client.api
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: com.hotmart.datahub.event.agent
+      newPackageName: com.hotmart.datahub.client.api
+
+  # Migrar de commons-lang para commons-lang3
+  - org.openrewrite.java.ChangePackage:
+      oldPackageName: org.apache.commons.lang
+      newPackageName: org.apache.commons.lang3
+
+  # Remover imports específicos de constantes que não serão mais usadas
+  #- org.openrewrite.java.RemoveImport:
+  #    pattern: com.hotmart.datahub.event.agent.EventAgentConfig
+
+  # Remover constantes específicas dos arquivos Java
+  #- org.openrewrite.java.DeleteProperty:
+  #    propertyKey: EventAgentConfig.PARAM_STR_KPL_LOG_LEVEL_PARAM
+  #    filePattern: "**/*.java"
+
+  #- org.openrewrite.java.DeleteProperty:
+  #    propertyKey: EventAgentConfig.PARAM_STR_KPL_METRICS_LEVEL_PARAM
+  #    filePattern: "**/*.java"
+
+  # Remover propriedade de versão antiga do event-agent
+  - org.openrewrite.maven.RemoveProperty:
+      propertyName: event-agent.version
+
+  # Adicionar nova propriedade de versão do datahub-client-api
+  - org.openrewrite.maven.AddProperty:
+      key: datahub-client-api.version
+      value: '4.2.0'
+
+  # Substituir dependência no pom.xml
+  - org.openrewrite.maven.RemoveDependency:
+      groupId: com.hotmart.datahub
+      artifactId: event-agent
+
+  - org.openrewrite.maven.AddDependency:
+      groupId: com.hotmart.datahub
+      artifactId: datahub-client-api
+      version: '${datahub-client-api.version}'
+      scope: compile
+      onlyIfMissing: true
+
+  # Ajustes de memória para staging.yml
+  - org.openrewrite.yaml.ChangeValue:
+      keyPath: "$.memory"
+      value: "512M"
+      condition:
+        - keyPath: "$.memory"
+          value: "1G"
+        - filePath: "**/staging.yml"
+
+  - org.openrewrite.yaml.ChangeValue:
+      keyPath: "$.memory"
+      value: "1G"
+      condition:
+        - keyPath: "$.memory"
+          value: "1024M"
+        - filePath: "**/staging.yml"
+
+  - org.openrewrite.yaml.ChangeValue:
+      keyPath: "$.memory"
+      value: "1G"
+      condition:
+        - keyPath: "$.memory"
+          value: "2G"
+        - filePath: "**/staging.yml"
+
+  - org.openrewrite.yaml.ChangeValue:
+      keyPath: "$.memory"
+      value: "2G"
+      condition:
+        - keyPath: "$.memory"
+          value: "3G"
+        - filePath: "**/staging.yml"
+
+  - org.openrewrite.yaml.ChangeValue:
+      keyPath: "$.memory"
+      value: "2G"
+      condition:
+        - keyPath: "$.memory"
+          value: "4G"
+        - filePath: "**/staging.yml"
+
+  # Ajustes de memória para production.yml
+  - org.openrewrite.yaml.ChangeValue:
+      keyPath: "$.memory"
+      value: "1G"
+      condition:
+        - keyPath: "$.memory"
+          value: "2G"
+        - filePath: "**/production.yml"
+
+  - org.openrewrite.yaml.ChangeValue:
+      keyPath: "$.memory"
+      value: "2G"
+      condition:
+        - keyPath: "$.memory"
+          value: "3G"
+        - filePath: "**/production.yml"
+
+  - org.openrewrite.yaml.ChangeValue:
+      keyPath: "$.memory"
+      value: "3G"
+      condition:
+        - keyPath: "$.memory"
+          value: "4G"
+        - filePath: "**/production.yml"
+
+  # Adicionar variável SPRING_PROFILES_ACTIVE baseado no arquivo
+  - org.openrewrite.yaml.ChangeValue:
+      keyPath: env.SPRING_PROFILES_ACTIVE
+      value: production
+      filePattern: "**/production.yml"
+
+  - org.openrewrite.yaml.ChangeValue:
+      keyPath: env.SPRING_PROFILES_ACTIVE
+      value: staging
+      filePattern: "**/staging.yml"
