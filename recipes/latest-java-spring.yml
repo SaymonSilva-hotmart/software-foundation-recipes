@@ -7,7 +7,7 @@ recipeList:
   - org.openrewrite.maven.UpgradeDependencyVersion:
       groupId: com.hotmart
       artifactId: hot-security-spring-boot-starter
-      newVersion: 3.1.15
+      newVersion: 3.1.17
   - org.openrewrite.maven.UpgradeDependencyVersion:
       groupId: com.hotmart.datahub
       artifactId: datahub-client-api

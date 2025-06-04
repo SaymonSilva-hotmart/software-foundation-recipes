@@ -11,7 +11,7 @@ class OpenRewriteManager:
         self.workspace_dir.mkdir(exist_ok=True)
         load_dotenv()
 
-        self.rewrite_version = "8.21.0"
+        self.rewrite_version = "8.54.0"
 
     def _load_config(self, config_path):
         with open(config_path, 'r') as f:
@@ -61,6 +61,24 @@ class OpenRewriteManager:
             <artifactId>rewrite-yaml</artifactId>
             <version>${{rewrite.version}}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.openrewrite.recipe</groupId>
+            <artifactId>rewrite-migrate-java</artifactId>
+            <version>3.11.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.openrewrite.recipe</groupId>
+            <artifactId>rewrite-spring</artifactId>
+            <version>6.8.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.antlr</groupId>
+            <artifactId>antlr4-runtime</artifactId>
+            <version>4.13.2</version>
+        </dependency>        
     '''
             content = content[:dependencies_end] + rewrite_deps + content[dependencies_end:]
 
